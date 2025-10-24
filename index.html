@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LessPass Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">LessPass Manager</h1>
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" id="search" placeholder="Поиск по сервисам..." class="search-input">
+                </div>
+                <button id="addProfile" class="btn btn-primary">+ Новый профиль</button>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle">⋮</button>
+                    <div class="dropdown-menu">
+                        <button id="exportBtn" class="dropdown-item">📤 Экспорт</button>
+                        <button id="importBtn" class="dropdown-item">📥 Импорт</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div id="profilesList" class="profiles-list">
+                <!-- Профили будут здесь -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно добавления/редактирования профиля -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Новый профиль</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="profileForm" class="form">
+                <div class="form-group">
+                    <label for="site">Сервис *</label>
+                    <input type="text" id="site" required>
+                </div>
+                <div class="form-group">
+                    <label for="login">Логин *</label>
+                    <input type="text" id="login" required>
+                </div>
+                <div class="form-group">
+                    <label for="length">Длина пароля</label>
+                    <input type="number" id="length" value="16" min="8" max="64">
+                </div>
+                <div class="form-group">
+                    <label for="counter">Счётчик</label>
+                    <input type="number" id="counter" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Используемые символы</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox">
+                            <input type="checkbox" id="lowercase" checked>
+                            <span class="checkmark"></span>
+                            abc (строчные)
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="uppercase" checked>
+                            <span class="checkmark"></span>
+                            ABC (прописные)
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="numbers" checked>
+                            <span class="checkmark"></span>
+                            123 (цифры)
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="symbols" checked>
+                            <span class="checkmark"></span>
+                            !@# (символы)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно мастер-пароля -->
+    <div id="masterPasswordModal" class="modal">
+        <div class="modal-content compact">
+            <div class="modal-header">
+                <h2>Введите мастер-пароль</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="masterPasswordForm" class="form">
+                <div class="form-group">
+                    <label for="masterPassword">Мастер-пароль</label>
+                    <input type="password" id="masterPassword" required autocomplete="current-password">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сгенерировать пароль</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Скрытый input для импорта -->
+    <input type="file" id="importFile" accept=".json" style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+</html>
